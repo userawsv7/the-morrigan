@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { UniversalPluginEngine, AdditiveRiskEngine, EngineFindingManifest, CompiledMorriganPayload } from '@/lib/morrigan-core';
 
 export const dynamic = 'force-dynamic';
-export const runtime = 'edge';
 
 export async function POST(req: NextRequest) {
   try {
