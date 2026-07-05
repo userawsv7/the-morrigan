@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     if (id) {
       const session = await prisma.investigationSession.findUnique({
         where: { id },
-        include: { logs: true },
+        include: { incidents: true }, // Fix 1: Align relation key to 'incidents'
       });
       return NextResponse.json(session);
     }
@@ -34,12 +34,13 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { title, mode } = body;
+    const { mode } = body;
 
+    // Fix 2 & 3: Supply generated id, strip out invalid 'title', normalize operating mode strings
     const session = await prisma.investigationSession.create({
       data: {
-        title: title || 'New SRE Investigation',
-        mode: mode || 'STANDARD',
+        id: crypto.randomUUID(),
+        mode: mode === "PRODUCTION" || mode === "EMERGENCY" ? mode : "NORMAL",
       },
     });
 
