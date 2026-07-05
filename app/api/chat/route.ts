@@ -1,4 +1,5 @@
 // app/api/chat/route.ts
+export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { UniversalPluginEngine, AdditiveRiskEngine, EngineFindingManifest, CompiledMorriganPayload } from '@/lib/morrigan-core';
 
